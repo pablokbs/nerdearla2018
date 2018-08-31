@@ -2,6 +2,8 @@
 
 ## Demo nerdearla 2018
 
+https://speakerdeck.com/pablokbs/desmitificando-el-networking-en-kubernetes
+
 ### Requerimientos
 
 * [kops version >= 1.9 instalado](https://github.com/kubernetes/kops/blob/master/docs/install.md)

@@ -15,25 +15,31 @@ delete:
 
 
 demo1:
-	kubectl create -f manifests
-	open -a safari "http://178.128.238.172:30002"
-	kubectl get pods --all-namespaces --watch
+	kubectl get nodes -o wide
+	kubectl get pods -n kube-system -o wide 
 
 demo2:
+	kubectl create -f manifests
+	sleep 10
+	open -a safari "http://178.128.238.172:30002"
+	kubectl get pods --all-namespaces -o wide |grep -v kube-system
+	ssh -i ~/.ssh/id_rsa core@178.128.238.172 ip route show
+
+demo3:
 	kubectl create -n stars -f policies/default-deny.yaml
 	kubectl create -n client -f policies/default-deny.yaml
 
-demo3:
+demo4:
 	kubectl create -f policies/allow-ui.yaml
 	kubectl create -f policies/allow-ui-client.yaml
 
-demo4:
+demo5:
 	kubectl create -f policies/backend-policy.yaml
 
-demo5:
+demo6:
 	kubectl create -f policies/frontend-policy.yaml
 
-demo6:
+demo7:
 	kubectl delete -n stars netpol default-deny
 	kubectl delete -n client netpol default-deny
 	kubectl -n stars delete netpol allow-ui backend-policy frontend-policy
